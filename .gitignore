@@ -1,0 +1,49 @@
+# Build chiqindilari
+build/
+build-*/
+build-linux/
+cmake-build-*/
+CMakeCache.txt
+CMakeFiles/
+*.o
+*.obj
+*.a
+*.so
+
+# C++ binary
+gcf
+gcf.exe
+*.gcf
+*.tmp
+!test-data/**/*.gcf
+
+# .NET
+gcf_gui/bin/
+gcf_gui/obj/
+publish/
+*.user
+.vs/
+
+# Qt
+linux/gcf-qt/build*/
+*.pro.user
+moc_*.cpp
+ui_*.h
+qrc_*.cpp
+
+# Test artefaktlar (ildizda yotmasligi kerak)
+restored_*.txt
+test_*.gcf
+/tmp/gcf_*/
+
+# IDE / OS
+.idea/
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Lokal .gcf test fayllar (repo ga tushmasin)
+test_linux.txt.gcf
+restored_linux.txt

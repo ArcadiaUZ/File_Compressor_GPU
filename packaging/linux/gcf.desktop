@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=GCF Compressor
+Comment=GPU File Compressor - fayllarni siqish/ochish
+Exec=gcf gpus
+Terminal=true
+Type=Application
+Categories=Utility;Archiving;

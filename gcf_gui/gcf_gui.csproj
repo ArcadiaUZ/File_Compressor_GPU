@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <!-- net8 LTS: Windows 10/11 da maksimal moslik. net10 SDK ham buni yig'adi. -->
+    <!-- net10 kerak bo'lsa: dotnet build -p:TargetFramework=net10.0-windows -->
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <AssemblyName>GCF</AssemblyName>
+    <RootNamespace>GcfGui</RootNamespace>
+    <Version>1.0.0</Version>
+    <!-- Bitta fayl: .NET ham ichida, foydalanuvchi hech narsa o'rnatmaydi -->
+    <PublishSingleFile>true</PublishSingleFile>
+    <SelfContained>true</SelfContained>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+  </PropertyGroup>
+
+  <!-- C++ backend (gcf.exe) GUI ichiga gömiladi, ishga tushganda Temp ga chiqariladi -->
+  <ItemGroup>
+    <EmbeddedResource Include="native\gcf.exe">
+      <LogicalName>gcf.exe</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>

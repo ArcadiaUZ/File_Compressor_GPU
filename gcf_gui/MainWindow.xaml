@@ -1,0 +1,147 @@
+<Window x:Class="GcfGui.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="GCF — GPU Fayl Siqish" Height="800" Width="720" MinHeight="600" MinWidth="560"
+        WindowStartupLocation="CenterScreen"
+        Background="#1E1E2E" Foreground="#E8E8F0" AllowDrop="True">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="#7C5CFF"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Padding" Value="0,12"/>
+            <Setter Property="Margin" Value="6"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="10"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#9378FF"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Background" Value="#3A3A4E"/>
+                    <Setter Property="Foreground" Value="#888898"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <!-- Jurnal skrolbari: tepa/past tugmali, doim ko'rinadi -->
+        <Style TargetType="ScrollBar">
+            <Setter Property="Background" Value="#2A2A3E"/>
+            <Setter Property="Width" Value="18"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ScrollBar">
+                        <Grid Background="{TemplateBinding Background}">
+                            <Track Name="PART_Track" IsDirectionReversed="True"
+                                   Maximum="{TemplateBinding Maximum}"
+                                   Minimum="{TemplateBinding Minimum}"
+                                   Value="{TemplateBinding Value}"
+                                   ViewportSize="{TemplateBinding ViewportSize}">
+                                <Track.Thumb>
+                                    <Thumb>
+                                        <Thumb.Template>
+                                            <ControlTemplate TargetType="Thumb">
+                                                <Border Background="#7C5CFF" CornerRadius="5" Margin="4,1"/>
+                                            </ControlTemplate>
+                                        </Thumb.Template>
+                                    </Thumb>
+                                </Track.Thumb>
+                            </Track>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="22">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- GPU holati -->
+        <Border Grid.Row="0" Background="#2A2A3E" CornerRadius="10" Padding="12,9" Margin="0,0,0,14">
+            <TextBlock x:Name="GpuBadge" Text="⏳ GPU tekshirilmoqda..." FontSize="15" FontWeight="SemiBold"/>
+        </Border>
+
+        <!-- Drag & Drop maydoni -->
+        <Border x:Name="DropZone" Grid.Row="1" Background="#252536" CornerRadius="14"
+                BorderBrush="#7C5CFF" BorderThickness="2" Padding="20" Margin="0,0,0,10"
+                MinHeight="170">
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock Text="📦" FontSize="44" HorizontalAlignment="Center"/>
+                <TextBlock Text="Faylni shu yerga tashlang" FontSize="17" FontWeight="SemiBold"
+                           HorizontalAlignment="Center" Margin="0,6,0,2"/>
+                <TextBlock Text="yoki" FontSize="13" Foreground="#888898" HorizontalAlignment="Center"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button x:Name="PickButton" Content="Fayl tanlash" Width="170" Click="PickButton_Click"/>
+                    <Button x:Name="PickFolderButton" Content="📁 Papka" Width="130"
+                            Background="#2A2A3E" Click="PickFolderButton_Click"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+        <TextBlock x:Name="FileLabel" Grid.Row="2" Text="Hali fayl tanlanmagan"
+                   FontSize="13" Foreground="#AAAAB8" TextTrimming="CharacterEllipsis" Margin="4,0,4,10"/>
+
+        <!-- Amallar -->
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="CompressButton" Grid.Column="0" Content="⬇ Siqish" Click="CompressButton_Click"/>
+            <Button x:Name="DecompressButton" Grid.Column="1" Content="⬆ Ochish" Click="DecompressButton_Click"/>
+        </Grid>
+
+        <Grid Grid.Row="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="OpenArchButton" Grid.Column="0" Content="📂 Arxiv ochish"
+                    Background="#2A2A3E" FontSize="14" Click="OpenArchButton_Click"/>
+            <Button x:Name="AssocButton" Grid.Column="1" Content="🔗 .gcf ni bog'lash"
+                    Background="#2A2A3E" FontSize="14" Click="AssocButton_Click"/>
+        </Grid>
+
+        <!-- Progress: faqat ishlayotganda ko'rinadi (doimiy chiziq olib tashlandi) -->
+        <ProgressBar x:Name="WorkProgress" Grid.Row="5" Height="6" Margin="6,10,6,2"
+                     IsIndeterminate="True" Visibility="Collapsed"
+                     Background="Transparent" Foreground="#7C5CFF" BorderThickness="0"/>
+
+        <!-- Jurnal sarlavhasi -->
+        <DockPanel Grid.Row="6" Margin="4,6,4,4">
+            <TextBlock Text="📋 Jurnal" FontSize="13" FontWeight="SemiBold" Foreground="#AAAAB8"
+                       VerticalAlignment="Center"/>
+            <Button x:Name="ClearLogButton" Content="Tozalash" FontSize="12" Padding="12,4"
+                    HorizontalAlignment="Right" Click="ClearLogButton_Click"/>
+        </DockPanel>
+
+        <!-- Jurnal -->
+        <Border Grid.Row="7" Background="#2A2A3E" CornerRadius="10" Padding="6" Margin="0,0,0,0">
+            <ScrollViewer x:Name="LogScroll" VerticalScrollBarVisibility="Visible"
+                          HorizontalScrollBarVisibility="Disabled" Padding="8,4">
+                <TextBlock x:Name="LogText" FontSize="13" TextWrapping="Wrap" Foreground="#C9C9D8"
+                           Text="GCF tayyor."/>
+            </ScrollViewer>
+        </Border>
+    </Grid>
+</Window>

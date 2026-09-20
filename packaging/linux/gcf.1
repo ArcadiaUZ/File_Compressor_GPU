@@ -1,0 +1,34 @@
+.TH GCF 1 "2026" "GCF 1.0.0" "User Commands"
+.SH NAME
+gcf \- GPU File Compressor (Huffman arxivlovchi)
+.SH SYNOPSIS
+.B gcf
+.I COMMAND
+.RI [ args ...]
+.SH COMMANDS
+.TP
+.B gpus
+GPU larni ro'yxatlash.
+.TP
+.B compress IN OUT.gcf
+Bitta faylni arxivlash.
+.TP
+.B compress-multi OUT.gcf F1 [F2..]
+Ko'p faylli arxiv.
+.TP
+.B compress-folder DIR OUT.gcf
+Papkani rekursiv arxivlash.
+.TP
+.B decompress IN.gcf OUT
+Bitta yozuvli arxivni ochish.
+.TP
+.B list ARCH.gcf
+Arxiv ichidagilar.
+.TP
+.B extract ARCH.gcf DIR [IDX..]
+Chiqarish.
+.TP
+.B info FILE
+Fayl haqida.
+.SH NOTES
+NVIDIA drayver bo'lmasa avtomatik CPU-fallback ishlaydi.
