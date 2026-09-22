@@ -1,7 +1,7 @@
 # GPU File Compressor — Backend v1.0 (C++ + CUDA)
 
-Har qanday faylni GPU da siqadigan backend. Hozir **RTX 3060 aniqlandi**,
-lekin CUDA Toolkit o'rnatilmagani uchun **CPU-fallback** rejimda ishlayapti.
+Har qanday faylni GPU da siqadigan backend. Hozir **RTX 3060 tekshirildi va ishladi**,
+lekin CUDA Toolkit o'rnatish kerak build qilishdan oldin bolmasam **CPU-fallback** rejimda ishlaydi.
 CUDA Toolkit o'rnatilgach qayta yig'ish kifoya — kod avtomatik GPU ga o'tadi.
 
 ## Imkoniyatlar
